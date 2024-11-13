@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <h1>Carbon Footprint Awareness</h1>
+        <ul>
+            <li><a href="#personal-calculator">Personal Calculator</a></li>
+            <li><a href="#school-analysis">School Analysis</a></li>
+            <li><a href="#daily-challenge">Daily Green Task</a></li>
+            <li><a href="#carbon-quiz">Carbon Quiz</a></li>
+            <li><a href="#day-scenario">Choose Your Day</a></li>
+            <li><a href="#habits-tracker">Eco Habits</a></li>
+            <li><a href="#leaderboard">Leaderboard</a></li>
+            <li><a href="#fun-fact">Fun Fact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Introduction Section -->
+    <section id="intro">
+        <h2>Welcome to the Carbon Footprint Calculator</h2>
+        <img src="cf1.jpg" alt="Environmental awareness with Earth and nature" class="intro-img">
+
+        <p>Learn more about your carbon footprint and find ways to reduce it, both personally and within your community.</p>
+    </section>
+
+    <!-- Personal Carbon Footprint Calculator Section -->
+    <section id="personal-calculator">
+        <h2>Calculate Your Carbon Footprint</h2>
+        <form id="personalForm">
+            <label for="monthly_kWh">Electricity Use (kWh per month):</label>
+            <input type="number" id="monthly_kWh" name="monthly_kWh">
+
+            <label for="weekly_commute_distance">Weekly Commute Distance (km):</label>
+            <input type="number" id="weekly_commute_distance" name="weekly_commute_distance">
+
+            <label for="vehicle_type">Vehicle Type:</label>
+            <select id="vehicle_type" name="vehicle_type">
+                <option value="car">Car</option>
+                <option value="bus">Bus</option>
+                <option value="bike">Bike</option>
+                <option value="walking">Walking</option>
+            </select>
+
+            <label for="diet_type">Diet Type:</label>
+            <select id="diet_type" name="diet_type">
+                <option value="omnivore">Omnivore</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+            </select>
+
+            <label for="monthlyWaste">Monthly Waste (kg):</label>
+            <input type="number" id="monthlyWaste" name="monthlyWaste">
+            <button type="button" onclick="calculatePersonalFootprint()">Calculate</button>
+        </form>
+        <p id="personalResult"></p>
+    </section>
+
+    <!-- School Carbon Footprint Analysis Section -->
+    <section id="school-analysis">
+        <h2>School Carbon Footprint Analysis</h2>
+        <button type="button" onclick="calculateSchoolFootprint()">Calculate School Footprint</button>
+        <p id="schoolResult"></p>
+    </section>
+
+    <!-- Daily Challenge Section -->
+    <section id="daily-challenge">
+        <h2>Daily Green Task</h2>
+        <p id="taskDisplay"></p>
+        <button onclick="completeTask()">Complete Task</button>
+        <p id="taskPoints">Points: 0</p>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="carbon-quiz">
+        <h2>What’s Your Carbon Knowledge?</h2>
+        <p>How much CO₂ is emitted when streaming one hour of HD video?</p>
+        <button onclick="checkAnswer('36')">36g</button>
+        <button onclick="checkAnswer('50')">50g</button>
+        <button onclick="checkAnswer('70')">70g</button>
+        <p id="quizFeedback"></p>
+    </section>
+
+    <!-- Interactive Scenario Section -->
+    <section id="day-scenario">
+        <h2>Choose Your Day</h2>
+        <p>Choose your breakfast:</p>
+        <button onclick="updateFootprint('breakfast', 'low')">Oatmeal and fruit</button>
+        <button onclick="updateFootprint('breakfast', 'high')">Bacon and eggs</button>
+
+        <p>Choose your commute:</p>
+        <button onclick="updateFootprint('commute', 'low')">Bike to school</button>
+        <button onclick="updateFootprint('commute', 'high')">Drive</button>
+
+        <p id="dayFootprint">Today's carbon footprint: 0 kg CO2</p>
+    </section>
+
+    <!-- Eco Habits Tracker Section -->
+    <section id="habits-tracker">
+        <h2>Eco Habits Tracker</h2>
+        <button onclick="logHabit()">Used a reusable bottle</button>
+        <button onclick="logHabit()">Cycled to school</button>
+        <p id="habitPoints">Habit Streak: 0</p>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard">
+        <h2>Leaderboard</h2>
+        <div id="leaderboardContainer"></div>
+    </section>
+
+    <!-- Fun Fact Section -->
+    <section id="fun-fact">
+        <h2>Did You Know?</h2>
+        <p id="factDisplay"></p>
+    </section>
+
+    <!-- JavaScript File -->
+    <script src="script.js"></script>
+</body>
+</html>
