@@ -21,18 +21,61 @@ function calculatePersonalFootprint() {
 }
 
 function calculateSchoolFootprint() {
-    const schoolElectricityCost = 1331291;
-    const electricityRate = 15;
-    let schoolElectricity_kWh = schoolElectricityCost / electricityRate;
-    let schoolElectricityEmissions = schoolElectricity_kWh * electricityEmissionFactor;
+    // Constants
+    const electricityEmissionFactorGrid = 0.233; // kg CO2e/kWh
+    const solarEmissionFactor = 0; // kg CO2e/kWh for solar energy
+    const waterEmissionFactor = 0.0004; // kg CO2e/liter for water treatment
+    const wasteEmissionFactor = 0.4; // kg CO2e/kg for waste
 
-    const schoolFuelCost = 700000;
-    const fuelRate = 272;
-    let schoolFuel_liters = schoolFuelCost / fuelRate;
-    let schoolFuelEmissions = schoolFuel_liters * 2.68;
+    // Electricity usage
+    const totalElectricity_kWh = 60000; // kWh per year
+    const electricityFromGrid_kWh = totalElectricity_kWh * 0.5; // 50% from grid
+    const electricityFromSolar_kWh = totalElectricity_kWh * 0.5; // 50% from solar
 
-    let totalSchoolCarbonFootprint = schoolElectricityEmissions + schoolFuelEmissions;
-    document.getElementById("schoolResult").innerText = `The school's annual carbon footprint is ${totalSchoolCarbonFootprint.toFixed(2)} kg CO2e.`;
+    // Calculating CO2 emissions from electricity
+    let electricityEmissions = electricityFromGrid_kWh * electricityEmissionFactorGrid;
+    let totalElectricityEmissions = electricityEmissions; // Solar emissions are 0
+
+    // Transportation emissions (given value for a sustainable school)
+    let transportationEmissions = 5000; // kg CO2e annually
+
+    // Waste management
+    const totalWaste_kg = 2500; // kg of waste per year
+    let wasteEmissions = totalWaste_kg * wasteEmissionFactor;
+
+    // Water usage
+    const totalWater_liters = 500000; // liters per year
+    let waterEmissions = totalWater_liters * waterEmissionFactor;
+
+    // Heating and cooling
+    const heatingCooling_kWh = 20000; // kWh per year
+    let heatingCoolingEmissions = heatingCooling_kWh * electricityEmissionFactorGrid;
+
+    // Total carbon footprint calculation
+    let totalSchoolCarbonFootprint = totalElectricityEmissions + transportationEmissions + wasteEmissions + waterEmissions + heatingCoolingEmissions;
+
+    // Displaying the detailed breakdown of the calculation
+    document.getElementById("schoolResult").innerHTML = `
+        <p><strong>Electricity Usage:</strong></p>
+        <p>Total Electricity: 60,000 kWh</p>
+        <p>Electricity from Grid: ${electricityFromGrid_kWh} kWh &times; ${electricityEmissionFactorGrid} kg CO2e/kWh = ${electricityEmissions.toFixed(2)} kg CO2e</p>
+        <p>Electricity from Solar: ${electricityFromSolar_kWh} kWh &times; 0 kg CO2e/kWh = 0 kg CO2e</p>
+        <p>Total Electricity Emissions: ${totalElectricityEmissions.toFixed(2)} kg CO2e</p>
+        
+        <p><strong>Transportation:</strong> 5,000 kg CO2e annually (eco-friendly initiatives)</p>
+        
+        <p><strong>Waste Management:</strong></p>
+        <p>Total Waste: 2,500 kg &times; ${wasteEmissionFactor} kg CO2e/kg = ${wasteEmissions.toFixed(2)} kg CO2e</p>
+        
+        <p><strong>Water Usage:</strong></p>
+        <p>500,000 liters &times; ${waterEmissionFactor} kg CO2e/liter = ${waterEmissions.toFixed(2)} kg CO2e</p>
+        
+        <p><strong>Heating and Cooling:</strong></p>
+        <p>20,000 kWh &times; ${electricityEmissionFactorGrid} kg CO2e/kWh = ${heatingCoolingEmissions.toFixed(2)} kg CO2e</p>
+        
+        <p><strong>Total Carbon Footprint:</strong></p>
+        <p>Total CO2e = ${totalElectricityEmissions.toFixed(2)} (electricity) + 5,000 (transportation) + ${wasteEmissions.toFixed(2)} (waste) + ${waterEmissions.toFixed(2)} (water) + ${heatingCoolingEmissions.toFixed(2)} (heating/cooling) = ${totalSchoolCarbonFootprint.toFixed(2)} kg CO2e annually</p>
+    `;
 }
 
 // Daily Challenge
